@@ -1,13 +1,15 @@
+#include <algorithm>
+#include <vector>
+
 class Solution {
 public:
-    void moveZeroes(vector<int>& nums) {
-        int i=0;
-        for (auto x : nums) {  // x 是当前元素
-            if (x != 0) {
-                nums[i] = x;   // 把非零往前挤
-                i++;
+    void moveZeroes(std::vector<int>& nums) {
+        int insert = 0;
+        for (int value : nums) {
+            if (value != 0) {
+                nums[insert++] = value;
             }
         }
-        fill(nums.begin() + i, nums.end(), 0);
+        std::fill(nums.begin() + insert, nums.end(), 0);
     }
 };

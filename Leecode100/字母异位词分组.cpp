@@ -1,20 +1,22 @@
+#include <algorithm>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 class Solution {
 public:
-    vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        unordered_map <string,vector<string>> mp;
-        for(auto &s : strs){
-            string t = s;  
-            sort(t.begin(),t.end());
-            mp[t].push_back(s);
+    std::vector<std::vector<std::string>> groupAnagrams(std::vector<std::string>& strs) {
+        std::unordered_map<std::string, std::vector<std::string>> mp;
+        for (auto& s : strs) {
+            std::string sorted = s;
+            std::sort(sorted.begin(), sorted.end());
+            mp[sorted].push_back(s);
         }
-                vector<vector<string>> res;
-        for (auto &p : mp) {
-            res.push_back(p.second);
+        std::vector<std::vector<std::string>> res;
+        res.reserve(mp.size());
+        for (auto& entry : mp) {
+            res.push_back(std::move(entry.second));
         }
         return res;
-        return {};
     }
 };
-// unordered_map <a ,b> mp;
-//mp[a];
-//hash 把字符串变成有序的字符串作为key

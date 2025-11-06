@@ -1,18 +1,21 @@
+#include <algorithm>
+#include <vector>
+
 class Solution {
 public:
-    int maxArea(vector<int>& height) {
-        long long an=0;
-        int i=0;
-        int j= height.size()-1;
-        while(i < j){
-            long long h = min(height[i], height[j]);
-            an = max(an, h * (j - i));
-                if(height[i]>height[j])
-                j--;
-                else
-                i++;
-
+    int maxArea(std::vector<int>& height) {
+        int area = 0;
+        int left = 0;
+        int right = static_cast<int>(height.size()) - 1;
+        while (left < right) {
+            int h = std::min(height[left], height[right]);
+            area = std::max(area, h * (right - left));
+            if (height[left] > height[right]) {
+                --right;
+            } else {
+                ++left;
+            }
         }
-        return an;
+        return area;
     }
 };
