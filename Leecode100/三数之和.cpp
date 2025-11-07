@@ -1,41 +1,24 @@
 #include <algorithm>
 #include <vector>
-
+using namespace std;
 class Solution {
 public:
-    std::vector<std::vector<int>> threeSum(std::vector<int>& nums) {
-        std::vector<std::vector<int>> res;
-        std::sort(nums.begin(), nums.end());  // 排序
-
-        for (int i = 0; i < static_cast<int>(nums.size()); ++i) {
-            if (nums[i] > 0) {
-                break;  // 最小值都 >0 ，不可能再组成 0
-            }
-            if (i > 0 && nums[i] == nums[i - 1]) {
-                continue;  // 去重
-            }
-
-            int left = i + 1;
-            int right = static_cast<int>(nums.size()) - 1;
-
-            while (left < right) {
-                const int sum = nums[i] + nums[left] + nums[right];
-
-                if (sum == 0) {
-                    res.push_back({nums[i], nums[left], nums[right]});
-                    while (left < right && nums[left] == nums[left + 1]) {
-                        ++left;
-                    }
-                    while (left < right && nums[right] == nums[right - 1]) {
-                        --right;
-                    }
-                    ++left;
-                    --right;
-                } else if (sum < 0) {
-                    ++left;
-                } else {
-                    --right;
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end()); // 排序
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]>0) break;
+            if(i>0&&nums[i]==nums[i-1]) continue;
+            int j=i+1;int k=nums.size()-1;
+            while(j<k){
+            if(nums[j]+nums[k]+nums[i]==0) {
+                res.push_back({nums[i], nums[j], nums[k]});
+                j++;k--;
+                while(j<k&&nums[j]==nums[j-1]) {j++;}
+                while(j<k&&k<nums.size()-1&&nums[k]==nums[k+1]) {k--;}
                 }
+            if(j<k&&nums[j]+nums[k]+nums[i]<0) {j++;}
+            if(j<k&&nums[j]+nums[k]+nums[i]>0) {k--;}
             }
         }
         return res;
